@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Commanddetails list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Number</th>
+                <th>Cost</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commandDetail in commandDetails %}
+            <tr>
+                <td><a href="{{ path('commanddetails_show', { 'id': commandDetail.id }) }}">{{ commandDetail.id }}</a></td>
+                <td>{{ commandDetail.number }}</td>
+                <td>{{ commandDetail.cost }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('commanddetails_show', { 'id': commandDetail.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('commanddetails_edit', { 'id': commandDetail.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('commanddetails_new') }}">Create a new commandDetail</a>
+        </li>
+    </ul>
+{% endblock %}

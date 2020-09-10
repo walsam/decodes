@@ -1,0 +1,14 @@
+messages_index:
+    path:     /
+    defaults: { _controller: "DecodesBundle:Messages:index" }
+    methods:  GET
+
+messages_show:
+    path:     /{id}/show
+    defaults: { _controller: "DecodesBundle:Messages:show" }
+    methods:  GET
+
+messages_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "DecodesBundle:Messages:delete" }
+    methods:  DELETE

@@ -1,0 +1,318 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/bootstrap4/bootstrap.min.css') }}">
+    <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/animate.css') }}">
+    <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css') }}">
+    <link rel="stylesheet" type="text/css" href="plugins/jquery-ui-1.12.1.custom/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/single_styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/single_responsive.css') }}">
+<style>
+    fieldset,
+    label {
+        margin: 0;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+
+    .rating {
+        border: none;
+        float: left;
+    }
+
+    .rating>input {
+        display: none;
+    }
+
+    .rating>label:before {
+        margin: 5px;
+        font-size: 1.25em;
+        font-family: FontAwesome;
+        display: inline-block;
+        content: "\f005";
+    }
+
+    .rating>.half:before {
+        content: "\f089";
+        position: absolute;
+    }
+
+    .rating>label {
+        color: #ddd;
+        float: right;
+    }
+
+    .rating>input:checked~label,
+
+        /* show gold star when clicked */
+
+    .rating:not(:checked)>label:hover,
+
+        /* hover current star */
+
+    .rating:not(:checked)>label:hover~label {
+        color: #FFD700;
+    }
+
+
+    /* hover previous stars in list */
+
+    .rating>input:checked+label:hover,
+
+        /* hover current star when changing rating */
+
+    .rating>input:checked~label:hover,
+    .rating>label:hover~input:checked~label,
+
+        /* lighten current selection */
+
+    .rating>input:checked~label:hover~label {
+        color: #FFED85;
+    }
+</style>
+{% endblock %}
+{% block slider %}{% endblock %}
+{% block banner %}{% endblock %}
+{% block body %}{% endblock %}
+{% block body2 %}
+    <div class="container single_product_container">
+        <div class="row">
+            <div class="col">
+
+                <!-- Breadcrumbs -->
+
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="single_product_pics">
+                    <div class="row">
+                        <div class="col-lg-9 image_col order-lg-2 order-1">
+                            <div class="single_product_image">
+                                <div class="single_product_image_background" style="background-image:url({{ asset('uploads/brochures/' ~ product.picture) }}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="product_details">
+                    <div class="product_details_title">
+                        <h2>{{ product.name }}</h2>
+                        <p>{{ product.description }}</p>
+                    </div>
+                    <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
+                        <span class="ti-truck"></span><span>LIVRAISON GRATUITE</span>
+                    </div>
+                    <div class="original_price">{{ product.price }} DH</div>
+                    <div class="product_price">{{ product.promoprice }} DH</div>
+
+                    <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                        <span>Quantité:</span>
+                        <div class="quantity_selector">
+                            <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                            <span id="quantity_value">1</span>
+                            <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+                        <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
+                    </div>
+                    <div>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <br>
+                            <div><button class="newsletter_submit_btn"><a style="color: white" href="{{ path('product_edit', { 'id': product.id }) }}">Modifier</a></button></div>
+                        {% elseif is_granted('ROLE_USER') %}
+                        <form method="POST" action="{{path("AddToCard")}}">
+                            <input type="hidden" value="{{product.id}}" name="productID"/>
+                            <input type="hidden" value="1" id="CommandQuantity" name="CommandQuantity"/>
+                            <input type="hidden" value="{{product.price}}" name="CommandPrice"/>
+                            <br>
+                            <button type="submit" class="newsletter_submit_btn" value="Ajouter au Panier">Ajouter au Panier</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Tabs -->
+
+    <div class="tabs_section_container">
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="tabs_container">
+                        <ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
+                            <li class="tab active" data-active-tab="tab_1"><span>Description</span></li>
+                            <li class="tab" data-active-tab="tab_2"><span>Informations Additionnelles</span></li>
+                            <li class="tab" data-active-tab="tab_3"><span>Reviews ({% for review in reviewsbadge %}{{ review.countreview }}{% endfor %})</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+                    <!-- Tab Description -->
+
+                    <div id="tab_1" class="tab_container active">
+                        <div class="row">
+                            <div class="col-lg-5 desc_col">
+                                <div class="tab_title">
+                                    <h4>Description</h4>
+                                </div>
+                                <div class="tab_text_block">
+                                    <h2>{{ product.name }}</h2>
+                                    <p>{{ product.description }}</p>
+                                </div>
+                                <div class="tab_image">
+                                    <img src="{{ asset('uploads/brochures/' ~ product.picture) }}" alt="">
+                                </div>
+                                <div class="tab_text_block">
+                                    <h2>Specification de {{ product.name }}</h2>
+                                    <p>Épaisseur : 15,2 mm
+                                        Largeurs : 110, 140, 170, 190 et 220* mm
+                                        (* 220 selon dispo : nous consulter car quantité limitée)
+
+                                        Longueurs : panachées variables à partir de 1000 et pouvant aller jusqu’à 2200 mm
+
+                                        Parement : +/- 4 mm, profil PGO 4, rainure languette,
+                                        Support : contreplaqué bouleau. Noeuds mastiqués.
+                                        Compatible chauffage au sol (basse température) en mode collé jusqu’à 220 mm de large, et plancher rayonnant électrique 95 W/m2 maxi jusqu’à largeur 220 mm, sol réversible compatible en 140 mm sauf choix avec aubier, voir fiche technique.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Additional Info -->
+
+                    <div id="tab_2" class="tab_container">
+                        <div class="row">
+                            <div class="col additional_info_col">
+                                <div class="tab_title additional_info_title">
+                                    <h4>Pour les informations additionnelles</h4>
+                                </div>
+                                <p>Telephone:<span>(212) 055555555</span></p>
+                                <p>Email:<span>Decodes@Shop.com</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Reviews -->
+
+                    <div id="tab_3" class="tab_container">
+                        <div class="row">
+
+                            <!-- User Reviews -->
+
+                            <div class="col-lg-6 reviews_col">
+                                <div class="tab_title reviews_title">
+                                    <h4>Avis ({% for review in reviewsbadge %}{{ review.countreview }}{% endfor %})</h4>
+                                </div>
+
+                                <!-- User Review -->
+                                {% for review in reviews %}
+                                        <div class="user_review_container d-flex flex-column flex-sm-row">
+                                            <div class="user">
+                                                <div class="user_pic"></div>
+                                                <div class="user_rating" >
+                                                    <ul class="star_rating">
+                                                        <script>
+                                                            for($i=0;$i<({{ review.review }})/2;$i++){
+                                                                document.write('<img width="13px" src="{{ asset('images/icons8-star-filled-50.png') }}">');
+                                                            }
+                                                            for($i=0;$i<5-({{ review.review }})/2;$i++){
+                                                                document.write('<img width="13px" src="{{ asset('images/icons8-star-50.png') }}">');
+                                                            }
+                                                        </script>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="review">
+                                                <div class="user_name">{{ review.firstname }} {{ review.lastname }}</div>
+                                                <p>{{ review.description }}</p>
+                                            </div>
+                                        </div>
+
+                                {% endfor %}
+                            </div>
+
+                            <!-- Add Review -->
+                            {% if is_granted('ROLE_ADMIN') %}
+                            {% elseif is_granted('ROLE_USER') %}
+                                <div class="col-lg-6 add_review_col">
+
+                                    <div class="add_review">
+                                        <form method="POST" action="{{path("AddReview")}}" id="review_form">
+                                            <input type="hidden" value="{{product.id}}"name="productID"/>
+                                            <fieldset class="rating">
+                                                <input type="radio" id="5star" name="rating" value="10" />
+                                                <label class="full" for="5star" title="Excellent"></label>
+
+                                                <input type="radio" id="4halfstar" name="rating" value="9" />
+                                                <label class="half" for="4halfstar" title="Good"></label>
+
+                                                <input type="radio" id="4star" name="rating" value="8" />
+                                                <label class="full" for="4star" title="Pretty good"></label>
+
+                                                <input type="radio" id="3halfstar" name="rating" value="7" />
+                                                <label class="half" for="3halfstar" title="Nice"></label>
+
+                                                <input type="radio" id="3star" name="rating" value="6" />
+                                                <label class="full" for="3star" title="Ok"></label>
+
+                                                <input type="radio" id="2halfstar" name="rating" value="5" />
+                                                <label class="half" for="2halfstar" title="Kinda bad"></label>
+
+                                                <input type="radio" id="2star" name="rating" value="4" />
+                                                <label class="full" for="2star" title="Bad"></label>
+
+                                                <input type="radio" id="1halfstar" name="rating" value="3" />
+                                                <label class="half" for="1halfstar" title="Meh"></label>
+
+                                                <input type="radio" id="1star" name="rating" value="2" />
+                                                <label class="full" for="1star" title="Umm"></label>
+
+                                                <input type="radio" id="halfstar" name="rating" value="1" />
+                                                <label class="half" for="halfstar" title="Worst"></label>
+                                            </fieldset>
+                                            <textarea name="description" id="review_message" class="input_review" placeholder="Your Review" rows="4" required data-error="SVP, laisser un message!"></textarea>
+                                            <button id="review_submit" type="submit" class="red_button review_submit_btn trans_300" value="review">Ajouter Votre Avis</button>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('styles/bootstrap4/popper.js') }}"></script>
+    <script src="{{ asset('styles/bootstrap4/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('plugins/Isotope/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
+    <script src="{{ asset('plugins/easing/easing.js') }}"></script>
+    <script src="{{ asset('plugins/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
+    <script src="{{ asset('js/single_custom.js') }}"></script>
+{% endblock %}

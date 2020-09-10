@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        input{
+            border: #fe4c5063;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 15px;
+            width: 250px;
+            margin-left: 15px;
+            background: #FFFFFF;
+            padding-left: 25px;
+        }
+        textarea{
+            border: #fe4c5063;
+            width: 250px;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 15px;
+            margin-left: 15px;
+            height: 150px;
+        }
+        label{
+            width: 120px;
+            background: #FFFFFF;
+            border: none;
+        }
+        select{
+            border: #fe4c5063;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 15px;
+            width: 250px;
+            margin-left: 15px;
+            background: #FFFFFF;
+            padding-left: 25px;
+        }
+    </style>
+{% endblock %}
+{% block slider %}{% endblock %}
+{% block banner %}{% endblock %}
+{% block body %}
+    <div class="container product_section_container" style="padding-top: 20px">
+        <div style=" padding-top: 15%">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="single_product_pics">
+                        <div class="row">
+                            <div class="col-lg-9 image_col order-lg-2 order-1">
+                                <div class="single_product_image">
+                                    <br><br><br>
+                                    <img src="{{ asset('images/nouveau.jpg') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="product_details">
+                        <div>{{ form_start(form) }}
+
+                            <table>
+                                <tr><td>{{ form_label(form.name, 'Nom de Catégorie') }}</td><td>{{ form_widget(form.name) }}</td></tr>
+                                <tr><td>{{ form_label(form.description) }}</td><td>{{ form_widget(form.description) }}</td></tr>
+                                <tr><td>{{ form_label(form.picture, 'Image') }}</td><td>{{ form_widget(form.picture) }}</td></tr>
+                                <tr><td colspan="2" style="text-align: center"><br><button type="submit" value="Create" class="newsletter_submit_btn" >Ajouter</button></td></tr>
+                            </table>
+                            {{ form_end(form) }}
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock %}

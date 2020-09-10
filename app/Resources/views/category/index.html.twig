@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block slider %}{% endblock %}
+{% block banner %}{% endblock %}
+{% block body %}{% endblock %}
+
+{% block body2 %}
+<div class="super_container">
+
+    <div class="banner" style="padding-top: 150px">
+        <div class="container">
+            <div class="row">
+                {% for category in categories %}
+                    <div class="col-md-4">
+                        <div class="banner_item align-items-center" style="background-image:url({{ asset('uploads/brochures/' ~ category.picture) }})">
+                            <div class="banner_category">
+                                <a href="{{ path('category_show', {'id': category.id}) }}">{{ category.name }} </a>
+                                <a class="fa fa-edit" href="{{ path('category_edit', { 'id': category.id }) }}"></a>
+                                <a class="fa fa-search" href="{{ path('category_show', { 'id': category.id }) }}"></a>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

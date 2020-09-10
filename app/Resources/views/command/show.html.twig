@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Commande</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ command.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{% if command.date %}{{ command.date|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Confirmation</th>
+                <td>
+                    <ul class="fa-ul">
+                        {% if command.confirmation %}
+                            <li><i class="fa-li fa fa-check-square"></i>Terminé</li>
+                        {% else %}
+                            <li><i class="fa-li fa fa-spinner fa-spin"></i>En attente</li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('command_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('command_edit', { 'id': command.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

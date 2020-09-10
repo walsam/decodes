@@ -1,0 +1,60 @@
+decodes_client:
+        resource: "@DecodesBundle/Resources/config/routing/client.yml"
+        prefix:   /client
+
+decodes_admin:
+        resource: "@DecodesBundle/Resources/config/routing/admin.yml"
+        prefix:   /admin
+
+decodes_command:
+        resource: "@DecodesBundle/Resources/config/routing/command.yml"
+        prefix:   /command
+
+decodes_commanddetails:
+        resource: "@DecodesBundle/Resources/config/routing/commanddetails.yml"
+        prefix:   /commanddetails
+
+decodes_messages:
+        resource: "@DecodesBundle/Resources/config/routing/messages.yml"
+        prefix:   /messages
+
+decodes_product:
+        resource: "@DecodesBundle/Resources/config/routing/product.yml"
+        prefix:   /product
+
+decodes_category:
+        resource: "@DecodesBundle/Resources/config/routing/category.yml"
+        prefix: /category
+
+decodes_homepage:
+    path:     /
+    defaults: { _controller: DecodesBundle:Default:index }
+
+login:
+    path:     /login
+    defaults: { _controller: DecodesBundle:Login:login }
+
+logout:
+    path: /logout
+
+decodes_account:
+    path:     /{id}/account
+    defaults: { _controller: DecodesBundle:Client:editX }
+    methods:  [GET, POST]
+
+
+decodes_signup:
+    path:     /signup
+    defaults: { _controller: DecodesBundle:Client:new }
+
+decodes_contact:
+    path:     /contact
+    defaults: { _controller: DecodesBundle:Messages:new }
+
+
+
+
+
+
+
+

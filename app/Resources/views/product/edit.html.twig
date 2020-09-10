@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<style>
+    input{
+        border: #fe4c5063;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 15px;
+        width: 250px;
+        margin-left: 15px;
+        background: #FFFFFF;
+        padding-left: 25px;
+    }
+    textarea{
+        border: #fe4c5063;
+        width: 250px;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 15px;
+        margin-left: 15px;
+        height: 150px;
+    }
+    label{
+        width: 120px;
+        background: #FFFFFF;
+        border: none;
+    }
+    select{
+        border: #fe4c5063;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 15px;
+        width: 250px;
+        margin-left: 15px;
+        background: #FFFFFF;
+        padding-left: 25px;
+    }
+</style>
+{% endblock %}
+{% block slider %}{% endblock %}
+{% block banner %}{% endblock %}
+{% block body %}
+<div class="container product_section_container" style="padding-top: 20px">
+    <div style=" padding-top: 15%">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="single_product_pics">
+                    <div class="row">
+                        <div class="col-lg-9 image_col order-lg-2 order-1">
+                            <div class="single_product_image">
+                                <img src="{{ asset('images/512px-Edit_font_awesome.svg.png') }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="product_details">
+                    <div>{{ form_start(edit_form) }}
+
+                        <table>
+                            <tr><td colspan="2" style="text-align: center"><h2>Modifier</h2>
+                                    <h3><b>{{ product.name }}</b></h3><br></td></tr>
+                            <tr><td>{{ form_label(edit_form.name, 'Nom de Produit') }}</td><td>{{ form_widget(edit_form.name) }}</td></tr>
+                            <tr><td>{{ form_label(edit_form.description) }}</td><td>{{ form_widget(edit_form.description) }}</td></tr>
+                            <tr><td>{{ form_label(edit_form.price, 'Prix') }}</td><td>{{ form_widget(edit_form.price) }}</td></tr>
+                            <tr><td>{{ form_label(edit_form.promoprice, 'Prix de Promotion') }}</td><td>{{ form_widget(edit_form.promoprice) }}</td></tr>
+                            <tr><td>{{ form_label(edit_form.picture, 'Image') }}</td><td>{{ form_widget(edit_form.picture) }}</td></tr>
+                            <tr><td>{{ form_label(edit_form.categorie, 'Categorie') }}</td><td>{{ form_widget(edit_form.categorie) }}</td></tr>
+                            <tr><td colspan="2" style="text-align: center"><br><button type="submit" value="Edit" class="newsletter_submit_btn" >Modifier</button></td></tr>
+                        </table>
+                        {{ form_end(edit_form) }}
+
+
+                    </div>
+                </div>
+            </div>
+            {{ form_start(delete_form) }}
+            <button type="submit" value="Delete" class="newsletter_submit_btn" >Supprimer</button>
+            {{ form_end(delete_form) }}
+        </div>
+
+
+    </div>
+</div>
+{% endblock %}

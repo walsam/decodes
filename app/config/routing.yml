@@ -1,0 +1,15 @@
+decodes:
+    resource: "@DecodesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+command:
+    resource: "@DecodesBundle/Controller/CommandDetailsController.php"
+    type:     annotation
+
+review:
+    resource: "@DecodesBundle/Controller/ReviewController.php"
+    type:     annotation
+
+commandadmin:
+    resource: "@DecodesBundle/Controller/CommandController.php"
+    type:     annotation

@@ -1,0 +1,176 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/bootstrap4/bootstrap.min.css') }}">
+    <link href="{{ asset('plugins/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/animate.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/jquery-ui-1.12.1.custom/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/categories_styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/categories_responsive.css') }}">
+    <style>
+
+        /* Style the buttons */
+        .btn {
+            border: none;
+            outline: none;
+            padding: 12px 16px;
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        /* Add a light grey background on mouse-over */
+        .btn:hover {
+            background-color: #ddd;
+        }
+
+        /* Add a dark background to the active button */
+        .btn.active {
+            background-color: #666;
+            color: white;
+        }
+        a{
+            color: black;
+        }
+    </style>
+{% endblock %}
+{% block slider %}{% endblock %}
+{% block banner %}{% endblock %}
+{% block body %}{% endblock %}
+{% block body2 %}
+    <div class="container product_section_container" style="padding-top: 2%">
+        <div class="row">
+            <div class="col product_section clearfix">
+
+                <!-- Sidebar -->
+
+                <div class="sidebar">
+                    <!-- prix -->
+                    <div class="sidebar_section">
+                        <div class="sidebar_title">
+                            <h5>Filtrer par Prix</h5>
+                        </div>
+                        <p>
+                            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                        </p>
+                        <div id="slider-range"></div>
+                        <div class="filter_button"><span>filter</span></div>
+                    </div>
+                    <!-- Categogy-->
+                    <div class="sidebar_section">
+                        <div class="sidebar_title">
+                            <h5>Les Catégories</h5>
+                        </div>
+                        <div id="myBtnContainer" style="width: inherit">
+                            <button class="btn"><a href="{{ path('product_index') }} ">Tous</a></button>
+                            {% for categ in categories %}
+                                <button class="btn"><a href="{{ path('category_show', {'id': categ.id}) }}">{{ categ.name }}</a></button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+
+                <div class="main_content">
+
+                    <!-- Products -->
+
+                    <div class="products_iso">
+                        <div class="row">
+                            <div class="col">
+
+                                <!-- Product Sorting -->
+
+                                <div class="product_sorting_container product_sorting_container_top">
+                                    <ul class="product_sorting">
+                                        <li>
+                                            <span class="type_sorting_text">Default Sorting</span>
+                                            <i class="fa fa-angle-down"></i>
+                                            <ul class="sorting_type">
+                                                <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "original-order" }'><span>Default Sorting</span></li>
+                                                <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "price" }'><span>Price</span></li>
+                                                <li class="type_sorting_btn" data-isotope-option='{ "sortBy": "name" }'><span>Product Name</span></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <span>Show</span>
+                                            <span class="num_sorting_text">12</span>
+                                            <i class="fa fa-angle-down"></i>
+                                            <ul class="sorting_num">
+                                                <li class="num_sorting_btn"><span>4</span></li>
+                                                <li class="num_sorting_btn"><span>8</span></li>
+                                                <li class="num_sorting_btn"><span>12</span></li>
+                                                <li class="num_sorting_btn"><span>16</span></li>
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                    <button class="newsletter_submit_btn"><a style="color: black" href="{{ path('product_new') }}"> Ajouter un Produit</a></button>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Product Grid -->
+
+                                <div class="product-grid">
+
+                                    <!-- Product 1 -->
+                                    {% for product in products %}
+                                        <div class="product-item {{ product.categorie }}">
+                                            <div class="product discount product_filter">
+                                                <a href="{{ path('product_show', {'id': product.id}) }}">
+                                                    <div class="product_image">
+                                                        <img style="width: inherit" src="{{ asset('uploads/brochures/' ~ product.picture) }}" alt="" >
+                                                    </div>
+                                                </a>
+                                                <div class="favorite favorite_left"></div>
+                                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-{{ product.price-product.promoprice }} DH</span></div>
+                                                <div class="product_info">
+                                                    <h6 class="product_name"><a href="{{ path('product_show', {'id': product.id}) }}">{{ product.name }}</a></h6>
+                                                    <div class="product_price">{{ product.promoprice }} DH<span>{{ product.price }} DH</span></div>
+                                                    <div>{{ product.categorie }}</div>
+                                                </div>
+                                            </div>
+                                            <form method="POST" action="{{path("AddToCard")}}">
+                                                <input type="hidden" value="{{product.id}}" name="productID"/>
+                                                <input type="hidden" value="1" id="CommandQuantity" name="CommandQuantity"/>
+                                                <input type="hidden" value="{{product.price}}" name="CommandPrice"/>
+                                                {% if is_granted('ROLE_USER') %}
+                                                     <input class="red_button add_to_cart_button" type="submit" value="Add to Card"/>
+                                                {% elseif is_granted('ROLE_ADMIN') %}
+                                                    <button class="red_button add_to_cart_button"><a href="{{ path('product_edit', {'id': product.id}) }}">Modifier</a></button>
+                                                {% else %}
+                                                {% endif %}
+                                            </form>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('styles/bootstrap4/popper.js') }}"></script>
+    <script src="{{ asset('styles/bootstrap4/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('plugins/Isotope/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
+    <script src="{{ asset('plugins/easing/easing.js') }}"></script>
+    <script src="{{ asset('plugins/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
+    <script src="{{ asset('js/categories_custom.js') }}"></script>
+
+{% endblock %}
+
+
+

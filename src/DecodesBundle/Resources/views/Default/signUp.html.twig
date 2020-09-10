@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'inscrire{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/bootstrap4/bootstrap.min.css') }}">
+    <link href="{{ asset('plugins/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/animate.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/jquery-ui-1.12.1.custom/jquery-ui.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/categories_styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles/categories_responsive.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{ asset('images/icons/favicon.ico') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/animate/animate.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/css-hamburgers/hamburgers.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/select2/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/util.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+    <style>
+        input{
+            border: #fe4c5063;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 15px;
+            width: 180px;
+            margin-left: 10px;
+            background: #FFFFFF;
+            padding-left: 25px;
+        }
+        textarea{
+            border: #fe4c5063;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 15px;
+            margin-left: 10px;
+            padding-left: 15px;
+        }
+        label{
+            width: 80px;
+            background: #FFFFFF;
+            border: none;
+        }
+
+         .alert {
+             padding: 20px;
+             background-color: #f44336;
+             color: white;
+         }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
+        }
+    </style>
+{% endblock %}
+{% block slider %}{% endblock %}
+{% block banner %}{% endblock %}
+
+
+{% block body %}
+    <div class="limiter" >
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="images/img-01.png" alt="IMG">
+                </div>
+                <div class="login100-form validate-form" >
+                    {{ form_start(form) }}
+                    <div>
+                        {{ form_label(form.firstname, 'prenom') }}
+                        {{ form_widget(form.firstname) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.lastname, 'nom') }}
+                        {{ form_widget(form.lastname) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.username, 'username') }}
+                        {{ form_widget(form.username) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.password, 'password') }}
+                        {{ form_widget(form.password) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.email, 'email') }}
+                        {{ form_widget(form.email) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.address, 'adresse') }}
+                        {{ form_widget(form.address) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.city, 'ville') }}
+                        {{ form_widget(form.city) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.zipcode, 'CP') }}
+                        {{ form_widget(form.zipcode) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.telephone, 'Telephone') }}
+                        {{ form_widget(form.telephone) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.creditcard, 'carte de credit') }}
+                        {{ form_widget(form.creditcard) }}
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">s'inscrire</button><b>{{ error }}</b>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('styles/bootstrap4/popper.js') }}"></script>
+    <script src="{{ asset('styles/bootstrap4/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('plugins/Isotope/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
+    <script src="{{ asset('plugins/easing/easing.js') }}"></script>
+    <script src="{{ asset('plugins/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
+    <script src="{{ asset('js/categories_custom.js') }}"></script>
+    <script src="{{ asset('vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/popper.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('vendor/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('vendor/tilt/tilt.jquery.min.js') }}"></script>
+    <script >
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+    <script src="js/main.js"></script>
+{% endblock %}
